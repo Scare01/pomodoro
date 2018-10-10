@@ -7,7 +7,17 @@ class App extends React.Component {
         super(props);
     }
     render() {
-        return (<div id="pomodoro"></div>)
+        return (<div id="pomodoro">
+            <div id="head">
+                <h1>Pomodoro clock</h1>
+            </div>
+            <div id="main">
+                <div id="settings">settings</div>
+                <div id="clock">clock</div>
+            </div>
+
+        </div>)
+
     }
 }
 ReactDOM.render(<App/>, document.getElementById('app'));
