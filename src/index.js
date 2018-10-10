@@ -12,8 +12,27 @@ class App extends React.Component {
                 <h1>Pomodoro clock</h1>
             </div>
             <div id="main">
-                <div id="settings">settings</div>
-                <div id="clock">clock</div>
+                <div id="settings">
+                    <div id="settings-head">
+                        <h3>Settings:</h3>
+                    </div>
+                    <div id="break">
+                        <div>
+                            <h3>Break</h3>
+                        </div>
+
+                    </div>
+                    <div id="session">
+                        <div>
+                            <h3>Session</h3>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="clock">
+                    <div id="time-left">25:00</div>
+                    <div id="clock-control">controls</div>
+                </div>
             </div>
 
         </div>)
