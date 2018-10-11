@@ -10,7 +10,47 @@ import reset from './img/reset.png';
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            breakLength: 5,
+            sessionLength: 25
+        }
+        this.clickControls = this.clickControls.bind(this);
     }
+
+    clickControls(e) {
+        let max = 60;
+        let min = 0;
+
+        if (e.target.value === 'breakIncrement') {
+            if (this.state.breakLength < max) {
+                this.setState({
+                    breakLength: this.state.breakLength + 1
+                })
+            }
+        } else if (e.target.value === 'breakDecrement') {
+            if (this.state.breakLength > min) {
+                this.setState({
+                    breakLength: this.state.breakLength - 1
+                })
+            }
+        } else if (e.target.value === 'sessionIncrement') {
+            if (this.state.sessionLength < max) {
+                this.setState({
+                    sessionLength: this.state.sessionLength + 1
+                })
+            }
+
+        } else if (e.target.value === 'sessionDecrement') {
+            if (this.state.sessionLength > min) {
+                this.setState({
+                    sessionLength: this.state.sessionLength - 1
+                })
+            }
+
+        }
+
+    }
+
     render() {
         return (<div id="pomodoro">
             <div id="head">
@@ -26,32 +66,30 @@ class App extends React.Component {
                             <h3>Break</h3>
                         </div>
                         <div id="break-controls">
-                            <div id="break-increment"><img src={up}/></div>
-                            <div id="break-length">5</div>
-                            <div id="break-decrement"><img src={down}/></div>
+                            <button id="break-increment" onClick={this.clickControls} value="breakIncrement"><img src={up}/></button>
+                            <div id="break-length">{this.state.breakLength}</div>
+                            <button id="break-decrement" onClick={this.clickControls} value="breakDecrement"><img src={down}/></button>
                         </div>
                     </div>
-
                     <div id="session-label">
                         <div id="session-head">
                             <h3>Session</h3>
                         </div>
                         <div id="session-controls">
-                            <div id="session-increment"><img src={up}/></div>
-                            <div id="session-length">25</div>
-                            <div id="session-decrement"><img src={down}/></div>
+                            <button id="session-increment" onClick={this.clickControls} value="sessionIncrement"><img src={up}/></button>
+                            <div id="session-length">{this.state.sessionLength}</div>
+                            <button id="session-decrement" onClick={this.clickControls} value="sessionDecrement"><img src={down}/></button>
                         </div>
                     </div>
                 </div>
-
                 <div id="clock">
                     <div id="time-left">25:00</div>
                     <div id="clock-controls">
                         <div id="start_stop">
-                            <div id="play"><img src={play}/></div>
-                            <div id="pause"><img src={pause}/></div>
+                            <button id="play"><img src={play}/></button>
+                            <button id="pause"><img src={pause}/></button>
                         </div>
-                        <div id="reset"><img src={reset}/></div>
+                        <button id="reset"><img src={reset}/></button>
                     </div>
                 </div>
             </div>

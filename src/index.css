@@ -35,8 +35,15 @@
     margin-bottom: -15px;
 }
 
+#settings button {
+    width: 30px;
+    height: 30px;
+}
+
 #settings img {
     width: 30px;
+    margin-left: -15px;
+    margin-top: -6px;
 }
 
 #break-controls, #session-controls {
@@ -68,7 +75,7 @@
 
 #clock-controls {
     width: 100%;
-    margin-left: 60px;
+    margin-left: 20px;
     margin-top: -20px;
     height: 22%;
     padding-top: 2%;
@@ -79,6 +86,10 @@
     width: 90%;
     height: 70%;
     margin-bottom: 5%;
+}
+
+#clock-controls button {
+    width: 30%;
 }
 
 #clock-controls, #start_stop {
