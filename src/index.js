@@ -83,7 +83,11 @@ class App extends React.Component {
                     </div>
                 </div>
                 <div id="clock">
-                    <div id="time-left">25:00</div>
+                    <h4 id="timer-label">Session</h4>
+                    <div id="time-left">
+
+                        25:00
+                    </div>
                     <div id="clock-controls">
                         <div id="start_stop">
                             <button id="play"><img src={play}/></button>
