@@ -70,7 +70,21 @@ class App extends React.Component {
     }
 
     tick() {
+        if (this.state.timerLabel === 'Session' && this.state.mm === 0 && this.state.ss === '00') {
+            this.setState({
+                timerLabel: 'Break',
+                mm: this.state.breakLength,
+                ss: '0' + 0
+            })
 
+        }
+        if (this.state.timerLabel === 'Break' && this.state.mm === 0 && this.state.ss === '00') {
+            this.setState({
+                timerLabel: 'Session',
+                mm: this.state.sessionLength,
+                ss: '0' + 0
+            })
+        }
         if (this.state.ss === '00') {
             this.setState({
                 ss: '60',
@@ -86,12 +100,10 @@ class App extends React.Component {
                 ss: (parseInt(this.state.ss) - 1).toString()
             })
         }
-
     }
 
     reset() {
-        this.startStop();
-
+        clearInterval(this.timerID);
         this.setState({
             breakLength: 5,
             sessionLength: 25,
@@ -126,7 +138,7 @@ class App extends React.Component {
                         </div>
                         <div id="session-label">
                             <div id="session-head">
-                                <h3>{this.state.timerLabel}</h3>
+                                <h3>Session</h3>
                             </div>
                             <div id="session-controls">
                                 <button id="session-increment" onClick={this.clickControls} value="sessionIncrement"><img src={up}/></button>
@@ -136,7 +148,7 @@ class App extends React.Component {
                         </div>
                     </div>
                     <div id="clock">
-                        <h4 id="timer-label">Session</h4>
+                        <h4 id="timer-label">{this.state.timerLabel}</h4>
                         <div id="time-left">{this.state.mm}:{this.state.ss}</div>
                         <div id="clock-controls">
                             <button id="start_stop" onClick={this.startStop}>Play/Pause</button>
