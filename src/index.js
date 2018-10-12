@@ -14,7 +14,7 @@ class App extends React.Component {
             breakLength: 5,
             sessionLength: 25,
             mm: 25,
-            ss: '15',
+            ss: '0' + 0,
             timerLabel: 'Session',
             play: true
         }
@@ -70,6 +70,13 @@ class App extends React.Component {
     }
 
     tick() {
+
+        if (this.state.ss === '00') {
+            this.setState({
+                ss: '60',
+                mm: this.state.mm - 1
+            })
+        }
         if (this.state.ss <= '10') {
             this.setState({
                 ss: '0'.concat((parseInt(this.state.ss) - 1).toString())
@@ -83,14 +90,16 @@ class App extends React.Component {
     }
 
     reset() {
+        this.startStop();
+
         this.setState({
             breakLength: 5,
             sessionLength: 25,
             mm: 25,
             timerLabel: 'Session',
-            play: false,
+            play: true,
             mm: 25,
-            ss: 59
+            ss: '0' + 0
         })
     }
 
