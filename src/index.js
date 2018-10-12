@@ -14,20 +14,19 @@ class App extends React.Component {
             breakLength: 5,
             sessionLength: 25,
             mm: 25,
-            ss: '00',
+            ss: '15',
             timerLabel: 'Session',
-            play: false
+            play: true
         }
         this.clickControls = this.clickControls.bind(this);
         this.startStop = this.startStop.bind(this);
         this.reset = this.reset.bind(this);
-        this.seconds = this.seconds.bind(this);
+        this.tick = this.tick.bind(this);
     }
 
     clickControls(e) {
         let max = 60;
         let min = 0;
-
         if (e.target.value === 'breakIncrement') {
             if (this.state.breakLength < max) {
                 this.setState({
@@ -47,7 +46,6 @@ class App extends React.Component {
                     mm: this.state.mm + 1
                 })
             }
-
         } else if (e.target.value === 'sessionDecrement') {
             if (this.state.sessionLength > min) {
                 this.setState({
@@ -55,29 +53,45 @@ class App extends React.Component {
                     mm: this.state.mm - 1
                 })
             }
-
         }
-
     }
 
     startStop() {
-        this.setState(play : !this.state.play)
+        this.setState({
+            play: !this.state.play
+        })
+
+        if (this.state.play === true) {
+            this.timerID = setInterval(() => this.tick(), 1000);
+        } else {
+            clearInterval(this.timerID);
+        }
+
     }
 
-    seconds() {
-        if () 
-            let sec = this.state.ss
-        if (sec === '00') {
-            sec = '59';
-        } else if (sec === '01') {
-            sec = '00';
+    tick() {
+        if (this.state.ss <= '10') {
+            this.setState({
+                ss: '0'.concat((parseInt(this.state.ss) - 1).toString())
+            })
         } else {
-            sec = (parseInt(sec) - 1).toString();
+            this.setState({
+                ss: (parseInt(this.state.ss) - 1).toString()
+            })
         }
-        this.setState({ss: sec});
+
     }
+
     reset() {
-        this.setState({breakLength: 5, sessionLength: 25, mm: 25, timerLabel: 'Session', play: false})
+        this.setState({
+            breakLength: 5,
+            sessionLength: 25,
+            mm: 25,
+            timerLabel: 'Session',
+            play: false,
+            mm: 25,
+            ss: 59
+        })
     }
 
     render() {
