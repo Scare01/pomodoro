@@ -16,17 +16,18 @@ class App extends React.Component {
             mm: 25,
             ss: '0' + 0,
             timerLabel: 'Session',
-            play: true
+            play: false
         }
         this.clickControls = this.clickControls.bind(this);
-        this.startStop = this.startStop.bind(this);
+        this.clickStartStop = this.clickStartStop.bind(this);
         this.reset = this.reset.bind(this);
         this.tick = this.tick.bind(this);
     }
 
     clickControls(e) {
         let max = 60;
-        let min = 0;
+        let min = 1;
+
         if (e.target.value === 'breakIncrement') {
             if (this.state.breakLength < max) {
                 this.setState({
@@ -56,17 +57,20 @@ class App extends React.Component {
         }
     }
 
-    startStop() {
+    clickStartStop() {
         this.setState({
             play: !this.state.play
         })
 
+        setTimeout(() => this.startStop(), 200);
+    }
+
+    startStop() {
         if (this.state.play === true) {
             this.timerID = setInterval(() => this.tick(), 1000);
         } else {
             clearInterval(this.timerID);
         }
-
     }
 
     tick() {
@@ -109,7 +113,7 @@ class App extends React.Component {
             sessionLength: 25,
             mm: 25,
             timerLabel: 'Session',
-            play: true,
+            play: false,
             mm: 25,
             ss: '0' + 0
         })
@@ -151,7 +155,7 @@ class App extends React.Component {
                         <h4 id="timer-label">{this.state.timerLabel}</h4>
                         <div id="time-left">{this.state.mm}:{this.state.ss}</div>
                         <div id="clock-controls">
-                            <button id="start_stop" onClick={this.startStop}>Play/Pause</button>
+                            <button id="start_stop" onClick={this.clickStartStop}>Play/Pause</button>
                             <button id="reset" onClick={this.reset}>Reset</button>
                         </div>
                     </div>
