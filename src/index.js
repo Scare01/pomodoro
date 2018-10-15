@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import up from './img/up.png';
 import down from './img/down.png';
-import play from './img/play.png';
-import pause from './img/pause.png';
-import reset from './img/reset.png';
 
 class App extends React.Component {
     constructor(props) {
