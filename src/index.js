@@ -68,19 +68,18 @@ class App extends React.Component {
     startStop() {
         clearInterval(this.timerID);
         if (this.state.play === true) {
+
             this.timerID = setInterval(() => {
                 if (this.state.timerLabel === 'Session' && this.state.mm === 0 && this.state.ss === '00') {
                     this.setState({
                         timerLabel: 'Break',
-                        mm: this.state.breakLength,
-                        ss: '0' + 0
+                        timeleft: this.state.breakLength + ':00'
                     })
 
                 } else if (this.state.timerLabel === 'Break' && this.state.mm === 0 && this.state.ss === '00') {
                     this.setState({
                         timerLabel: 'Session',
-                        mm: this.state.sessionLength,
-                        ss: '0' + 0
+                        tiemleft: this.state.sessionLength + ':00'
                     });
                 }
                 this.tick();
