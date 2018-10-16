@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import up from './img/up.png';
-import down from './img/down.png';
 
 class App extends React.Component {
     constructor(props) {
@@ -132,11 +130,9 @@ class App extends React.Component {
                                 <h3>Break</h3>
                             </div>
                             <div id="break-controls">
-                                <button id="break-increment" onClick={this.clickControls} value="breakIncrement">
-                                    <span className="glyphicon glyphicon-arrow-up"></span>
-                                </button>
+                                <button id="break-increment" onClick={this.clickControls} value="breakIncrement">Up</button>
                                 <div id="break-length">{this.state.breakLength}</div>
-                                <button id="break-decrement" onClick={this.clickControls} value="breakDecrement"><img src={down}/></button>
+                                <button id="break-decrement" onClick={this.clickControls} value="breakDecrement">Down</button>
                             </div>
                         </div>
                         <div id="session-label">
@@ -144,9 +140,9 @@ class App extends React.Component {
                                 <h3>Session</h3>
                             </div>
                             <div id="session-controls">
-                                <button id="session-increment" onClick={this.clickControls} value="sessionIncrement"><img src={up}/></button>
+                                <button id="session-increment" onClick={this.clickControls} value="sessionIncrement">Up</button>
                                 <div id="session-length">{this.state.sessionLength}</div>
-                                <button id="session-decrement" onClick={this.clickControls} value="sessionDecrement"><img src={down}/></button>
+                                <button id="session-decrement" onClick={this.clickControls} value="sessionDecrement">Down</button>
                             </div>
                         </div>
                     </div>
