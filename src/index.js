@@ -62,7 +62,7 @@ class App extends React.Component {
 
     startStop() {
         if (this.state.play === true) {
-            this.timerID = setInterval(() => this.tick(), 1000);
+            this.timerID = setInterval(() => this.tick(), 50);
         } else {
             clearInterval(this.timerID);
         }
