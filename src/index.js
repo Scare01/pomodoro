@@ -132,7 +132,9 @@ class App extends React.Component {
                                 <h3>Break</h3>
                             </div>
                             <div id="break-controls">
-                                <button id="break-increment" onClick={this.clickControls} value="breakIncrement"><img src={up}/></button>
+                                <button id="break-increment" onClick={this.clickControls} value="breakIncrement">
+                                    <span className="glyphicon glyphicon-arrow-up"></span>
+                                </button>
                                 <div id="break-length">{this.state.breakLength}</div>
                                 <button id="break-decrement" onClick={this.clickControls} value="breakDecrement"><img src={down}/></button>
                             </div>

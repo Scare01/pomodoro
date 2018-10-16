@@ -67,6 +67,7 @@ body {
 #break-increment, #break-length, #break-decrement, #session-increment, #session-length, #session-decrement {
     width: 30%;
     font-size: 1.3em;
+    text-align: center;
 }
 
 /* main clock section */
