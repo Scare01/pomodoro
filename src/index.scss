@@ -17,19 +17,20 @@ body {
     display: flex;
     flex-direction: column;
     background-color: lightgrey;
+
+    #head {
+        text-align: center;
+        font-size: 1.5em;
+        margin-top: -25px;
+    }
+
+    #main {
+        display: flex;
+        flex-direction: row;
+        height: 70%;
+    }
 }
 
-#head {
-    text-align: center;
-    font-size: 1.5em;
-    margin-top: -25px;
-}
-
-#main {
-    display: flex;
-    flex-direction: row;
-    height: 70%;
-}
 
 /* settings section */
 #settings {
