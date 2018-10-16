@@ -150,8 +150,8 @@ class App extends React.Component {
                         <h4 id="timer-label">{this.state.timerLabel}</h4>
                         <div id="time-left">{this.state.mm}:{this.state.ss}</div>
                         <div id="clock-controls">
-                            <button id="start_stop" onClick={this.clickStartStop} className="btn">Play/Pause</button>
-                            <button id="reset" onClick={this.reset} className="btn">Reset</button>
+                            <button id="start_stop" onClick={this.clickStartStop} className="btn btn-primary">Play/Pause</button>
+                            <button id="reset" onClick={this.reset} className="btn btn-primary">Reset</button>
                         </div>
                     </div>
                 </div>
