@@ -11,7 +11,8 @@ class App extends React.Component {
             mm: 25,
             ss: '0' + 0,
             timerLabel: 'Session',
-            play: false
+            play: true,
+            timeleft: '25:00'
         }
         this.clickControls = this.clickControls.bind(this);
         this.clickStartStop = this.clickStartStop.bind(this);
@@ -22,6 +23,7 @@ class App extends React.Component {
     clickControls(e) {
         let max = 60;
         let min = 1;
+        let timeleft = parseInt(this.state.timeleft.split(':')[0]);
 
         if (e.target.value === 'breakIncrement') {
             if (this.state.breakLength < max) {
@@ -37,16 +39,19 @@ class App extends React.Component {
             }
         } else if (e.target.value === 'sessionIncrement') {
             if (this.state.sessionLength < max) {
+                timeleft++;
                 this.setState({
                     sessionLength: this.state.sessionLength + 1,
-                    mm: this.state.mm + 1
+                    timeleft: timeleft + ':00'
+
                 })
             }
         } else if (e.target.value === 'sessionDecrement') {
             if (this.state.sessionLength > min) {
+                timeleft--;
                 this.setState({
                     sessionLength: this.state.sessionLength - 1,
-                    mm: this.state.mm - 1
+                    timeleft: timeleft + ':00'
                 })
             }
         }
@@ -57,33 +62,36 @@ class App extends React.Component {
             play: !this.state.play
         })
 
-        setTimeout(() => this.startStop(), 200);
+        this.startStop();
     }
 
     startStop() {
+        clearInterval(this.timerID);
         if (this.state.play === true) {
-            this.timerID = setInterval(() => this.tick(), 50);
+            this.timerID = setInterval(() => {
+                if (this.state.timerLabel === 'Session' && this.state.mm === 0 && this.state.ss === '00') {
+                    this.setState({
+                        timerLabel: 'Break',
+                        mm: this.state.breakLength,
+                        ss: '0' + 0
+                    })
+
+                } else if (this.state.timerLabel === 'Break' && this.state.mm === 0 && this.state.ss === '00') {
+                    this.setState({
+                        timerLabel: 'Session',
+                        mm: this.state.sessionLength,
+                        ss: '0' + 0
+                    });
+                }
+                this.tick();
+            }, 1000);
         } else {
             clearInterval(this.timerID);
         }
     }
 
     tick() {
-        if (this.state.timerLabel === 'Session' && this.state.mm === 0 && this.state.ss === '00') {
-            this.setState({
-                timerLabel: 'Break',
-                mm: this.state.breakLength,
-                ss: '0' + 0
-            })
 
-        }
-        if (this.state.timerLabel === 'Break' && this.state.mm === 0 && this.state.ss === '00') {
-            this.setState({
-                timerLabel: 'Session',
-                mm: this.state.sessionLength,
-                ss: '0' + 0
-            })
-        }
         if (this.state.ss === '00') {
             this.setState({
                 ss: '60',
@@ -108,9 +116,10 @@ class App extends React.Component {
             sessionLength: 25,
             mm: 25,
             timerLabel: 'Session',
-            play: false,
+            play: true,
             mm: 25,
-            ss: '0' + 0
+            ss: '0' + 0,
+            timeleft: '25:00'
         })
     }
 
@@ -148,7 +157,7 @@ class App extends React.Component {
                     </div>
                     <div id="clock">
                         <h4 id="timer-label">{this.state.timerLabel}</h4>
-                        <div id="time-left">{this.state.mm}:{this.state.ss}</div>
+                        <div id="time-left">{this.state.timeleft}</div>
                         <div id="clock-controls">
                             <button id="start_stop" onClick={this.clickStartStop} className="btn btn-primary">Play/Pause</button>
                             <button id="reset" onClick={this.reset} className="btn btn-primary">Reset</button>
