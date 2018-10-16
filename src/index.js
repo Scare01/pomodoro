@@ -20,9 +20,6 @@ class App extends React.Component {
     }
 
     clickControls(e) {
-
-        console.log(e.target.value)
-
         let max = 60;
         let min = 1;
 
