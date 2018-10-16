@@ -20,6 +20,9 @@ class App extends React.Component {
     }
 
     clickControls(e) {
+
+        console.log(e.target.value)
+
         let max = 60;
         let min = 1;
 
@@ -126,23 +129,23 @@ class App extends React.Component {
                             <h3>Settings:</h3>
                         </div>
                         <div id="break-label">
-                            <div>
+                            <div className="label-head">
                                 <h3>Break</h3>
                             </div>
                             <div id="break-controls">
-                                <button id="break-increment" onClick={this.clickControls} value="breakIncrement">Up</button>
+                                <button id="break-increment" onClick={this.clickControls} value="breakIncrement" className="glyphicon glyphicon-arrow-up"></button>
                                 <div id="break-length">{this.state.breakLength}</div>
-                                <button id="break-decrement" onClick={this.clickControls} value="breakDecrement">Down</button>
+                                <button id="break-decrement" onClick={this.clickControls} value="breakDecrement" className="glyphicon glyphicon-arrow-down"></button>
                             </div>
                         </div>
                         <div id="session-label">
-                            <div id="session-head">
+                            <div className="label-head">
                                 <h3>Session</h3>
                             </div>
                             <div id="session-controls">
-                                <button id="session-increment" onClick={this.clickControls} value="sessionIncrement">Up</button>
+                                <button id="session-increment" onClick={this.clickControls} value="sessionIncrement" className="glyphicon glyphicon-arrow-up"></button>
                                 <div id="session-length">{this.state.sessionLength}</div>
-                                <button id="session-decrement" onClick={this.clickControls} value="sessionDecrement">Down</button>
+                                <button id="session-decrement" onClick={this.clickControls} value="sessionDecrement" className="glyphicon glyphicon-arrow-down"></button>
                             </div>
                         </div>
                     </div>
@@ -150,8 +153,8 @@ class App extends React.Component {
                         <h4 id="timer-label">{this.state.timerLabel}</h4>
                         <div id="time-left">{this.state.mm}:{this.state.ss}</div>
                         <div id="clock-controls">
-                            <button id="start_stop" onClick={this.clickStartStop}>Play/Pause</button>
-                            <button id="reset" onClick={this.reset}>Reset</button>
+                            <button id="start_stop" onClick={this.clickStartStop} className="btn">Play/Pause</button>
+                            <button id="reset" onClick={this.reset} className="btn">Reset</button>
                         </div>
                     </div>
                 </div>

@@ -44,10 +44,14 @@ body {
     flex-direction: column;
     text-align: center;
 
-    #settings-head {
-        margin-bottom: -15px;
+    button {
+        border-radius: 100%;
+        height: 40px;
     }
 
+    .label-head {
+        margin-bottom: 15%;
+    }
 
     #break-controls, #session-controls {
         display: flex;
@@ -59,7 +63,7 @@ body {
 
     #break-increment, #break-length, #break-decrement, #session-increment, #session-length, #session-decrement {
         width: 30%;
-        font-size: 1.3em;
+        font-size: 1.5em;
         text-align: center;
     }
 
