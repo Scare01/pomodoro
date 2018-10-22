@@ -15,12 +15,7 @@ class App extends React.Component {
         this.clickControls = this.clickControls.bind(this);
         this.reset = this.reset.bind(this);
         this.clock = this.clock.bind(this);
-    }
-
-    componentDidMount() {
-        //    this.setState({
-        //        timeleft: this.state.timeleft / 60 + ':00'
-        //    });
+        this.clickStartStop = this.clickStartStop.bind(this);
     }
 
     clickControls(e) {
@@ -54,6 +49,40 @@ class App extends React.Component {
                     timeleft: this.state.timeleft - 60
                 })
             }
+        }
+    }
+
+    clickStartStop() {
+        this.setState({
+            play: !this.state.play
+        })
+        clearInterval(this.timerID);
+
+        if (this.state.play === true) {
+            this.tick();
+        }
+    }
+
+    tick() {
+        this.timerID = setInterval(() => {
+            setTimeout(() => this.checkSession(), 20);
+            this.setState({
+                timeleft: this.state.timeleft - 1
+            })
+        }, 1000);
+    }
+
+    checkSession() {
+        if (this.state.timeleft === 0 && this.state.timerLabel === "Session") {
+            this.setState({
+                timeleft: this.state.breakLength * 60,
+                timerLabel: "Break"
+            })
+        } else if (this.state.timeleft === 0 && this.state.timerLabel === "Break") {
+            this.setState({
+                timeleft: this.state.sessionLength * 60,
+                timerLabel: "Session"
+            })
         }
     }
 
