@@ -8,22 +8,24 @@ class App extends React.Component {
         this.state = {
             breakLength: 5,
             sessionLength: 25,
-            mm: 25,
-            ss: '0' + 0,
             timerLabel: 'Session',
             play: true,
-            timeleft: '25:00'
+            timeleft: 1500
         }
         this.clickControls = this.clickControls.bind(this);
-        this.clickStartStop = this.clickStartStop.bind(this);
         this.reset = this.reset.bind(this);
-        this.tick = this.tick.bind(this);
+    }
+
+    componentDidMount() {
+        this.setState({
+            timeleft: this.state.timeleft / 60 + ':00'
+        });
     }
 
     clickControls(e) {
         let max = 60;
         let min = 1;
-        let timeleft = parseInt(this.state.timeleft.split(':')[0]);
+        let timeleft = parseInt(this.state.timeleft);
 
         if (e.target.value === 'breakIncrement') {
             if (this.state.breakLength < max) {
@@ -57,69 +59,9 @@ class App extends React.Component {
         }
     }
 
-    clickStartStop() {
-        this.setState({
-            play: !this.state.play
-        })
-
-        this.startStop();
-    }
-
-    startStop() {
-        clearInterval(this.timerID);
-        if (this.state.play === true) {
-
-            this.timerID = setInterval(() => {
-                if (this.state.timerLabel === 'Session' && this.state.mm === 0 && this.state.ss === '00') {
-                    this.setState({
-                        timerLabel: 'Break',
-                        timeleft: this.state.breakLength + ':00'
-                    })
-
-                } else if (this.state.timerLabel === 'Break' && this.state.mm === 0 && this.state.ss === '00') {
-                    this.setState({
-                        timerLabel: 'Session',
-                        tiemleft: this.state.sessionLength + ':00'
-                    });
-                }
-                this.tick();
-            }, 1000);
-        } else {
-            clearInterval(this.timerID);
-        }
-    }
-
-    tick() {
-
-        if (this.state.ss === '00') {
-            this.setState({
-                ss: '60',
-                mm: this.state.mm - 1
-            })
-        }
-        if (this.state.ss <= '10') {
-            this.setState({
-                ss: '0'.concat((parseInt(this.state.ss) - 1).toString())
-            })
-        } else {
-            this.setState({
-                ss: (parseInt(this.state.ss) - 1).toString()
-            })
-        }
-    }
-
     reset() {
         clearInterval(this.timerID);
-        this.setState({
-            breakLength: 5,
-            sessionLength: 25,
-            mm: 25,
-            timerLabel: 'Session',
-            play: true,
-            mm: 25,
-            ss: '0' + 0,
-            timeleft: '25:00'
-        })
+        this.setState({breakLength: 5, sessionLength: 25, timerLabel: 'Session', play: true, timeleft: 1500})
     }
 
     render() {
