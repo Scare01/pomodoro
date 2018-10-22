@@ -14,18 +14,18 @@ class App extends React.Component {
         }
         this.clickControls = this.clickControls.bind(this);
         this.reset = this.reset.bind(this);
+        this.clock = this.clock.bind(this);
     }
 
     componentDidMount() {
-        this.setState({
-            timeleft: this.state.timeleft / 60 + ':00'
-        });
+        //    this.setState({
+        //        timeleft: this.state.timeleft / 60 + ':00'
+        //    });
     }
 
     clickControls(e) {
         let max = 60;
         let min = 1;
-        let timeleft = parseInt(this.state.timeleft);
 
         if (e.target.value === 'breakIncrement') {
             if (this.state.breakLength < max) {
@@ -41,22 +41,32 @@ class App extends React.Component {
             }
         } else if (e.target.value === 'sessionIncrement') {
             if (this.state.sessionLength < max) {
-                timeleft++;
+
                 this.setState({
                     sessionLength: this.state.sessionLength + 1,
-                    timeleft: timeleft + ':00'
-
+                    timeleft: this.state.timeleft + 60
                 })
             }
         } else if (e.target.value === 'sessionDecrement') {
             if (this.state.sessionLength > min) {
-                timeleft--;
                 this.setState({
                     sessionLength: this.state.sessionLength - 1,
-                    timeleft: timeleft + ':00'
+                    timeleft: this.state.timeleft - 60
                 })
             }
         }
+    }
+
+    clock() {
+        let minutes = Math.floor(this.state.timeleft / 60);
+        let seconds = this.state.timeleft - minutes * 60;
+        seconds = seconds < 10
+            ? '0' + seconds
+            : seconds;
+        minutes = minutes < 10
+            ? '0' + minutes
+            : minutes;
+        return minutes + ':' + seconds
     }
 
     reset() {
@@ -98,7 +108,7 @@ class App extends React.Component {
                     </div>
                     <div id="clock">
                         <h4 id="timer-label">{this.state.timerLabel}</h4>
-                        <div id="time-left">{this.state.timeleft}</div>
+                        <div id="time-left">{this.clock()}</div>
                         <div id="clock-controls">
                             <button id="start_stop" onClick={this.clickStartStop} className="btn btn-primary">Play/Pause</button>
                             <button id="reset" onClick={this.reset} className="btn btn-primary">Reset</button>
