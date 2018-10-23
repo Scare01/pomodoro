@@ -16,7 +16,7 @@ class App extends React.Component {
         this.reset = this.reset.bind(this);
         this.clock = this.clock.bind(this);
         this.clickStartStop = this.clickStartStop.bind(this);
-        this.beep = this.beep.bind(this);
+
     }
 
     clickControls(e) {
@@ -73,27 +73,23 @@ class App extends React.Component {
             this.setState({
                 timeleft: this.state.timeleft - 1
             });
-            this.beep(this.state.timeleft);
         }, 1000);
+        this.audioBeep.pause();
     }
 
     checkSession() {
         if (this.state.timeleft === 0 && this.state.timerLabel === "Session") {
+            this.audioBeep.play();
             this.setState({
                 timeleft: this.state.breakLength * 60,
                 timerLabel: "Break"
             })
         } else if (this.state.timeleft === 0 && this.state.timerLabel === "Break") {
+            this.audioBeep.play();
             this.setState({
                 timeleft: this.state.sessionLength * 60,
                 timerLabel: "Session"
             })
-        }
-    }
-    beep(_timeleft) {
-        if (_timeleft === 0) {
-
-            this.audioBeep.play();
         }
     }
 
@@ -113,7 +109,6 @@ class App extends React.Component {
         this.setState({breakLength: 5, sessionLength: 25, timerLabel: 'Session', play: true, timeleft: 1500});
         clearInterval(this.timerID);
         this.audioBeep.pause();
-        this.audioBeep.currentTime = 0;
     }
 
     render() {
@@ -161,7 +156,7 @@ class App extends React.Component {
             <h2 id="copyright">
                 by RubyLupus
             </h2>
-            <audio id="beep" preload="auto" src="https://goo.gl/65cBl1" ref={(audio) => {
+            <audio id="beep" preload="auto" src="beep-01a.mp3" ref={(audio) => {
                     this.audioBeep = audio;
                 }}/>
         </div>)
