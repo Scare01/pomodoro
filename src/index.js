@@ -79,7 +79,7 @@ class App extends React.Component {
 
     checkSession() {
         if (this.state.timeleft === 0 && this.state.timerLabel === "Session") {
-            this.audioBeep.play();
+            setTimeout(() => this.audioBeep.play(), 1000);
             this.setState({
                 timeleft: this.state.breakLength * 60,
                 timerLabel: "Break"
@@ -156,7 +156,7 @@ class App extends React.Component {
             <h2 id="copyright">
                 by RubyLupus
             </h2>
-            <audio id="beep" preload="auto" src="beep-01a.mp3" ref={(audio) => {
+            <audio id="beep" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3" type="audio/mpeg" ref={(audio) => {
                     this.audioBeep = audio;
                 }}/>
         </div>)
