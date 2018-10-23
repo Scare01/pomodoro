@@ -16,6 +16,7 @@ class App extends React.Component {
         this.reset = this.reset.bind(this);
         this.clock = this.clock.bind(this);
         this.clickStartStop = this.clickStartStop.bind(this);
+        this.beep = this.beep.bind(this);
     }
 
     clickControls(e) {
@@ -52,12 +53,15 @@ class App extends React.Component {
         }
     }
 
-    clickStartStop() {
+    setStartStopClock() {
         this.setState({
             play: !this.state.play
-        })
-        clearInterval(this.timerID);
+        });
+    }
 
+    clickStartStop() {
+        this.setStartStopClock();
+        clearInterval(this.timerID);
         if (this.state.play === true) {
             this.tick();
         }
@@ -68,7 +72,8 @@ class App extends React.Component {
             setTimeout(() => this.checkSession(), 20);
             this.setState({
                 timeleft: this.state.timeleft - 1
-            })
+            });
+            this.beep(this.state.timeleft);
         }, 1000);
     }
 
@@ -85,6 +90,12 @@ class App extends React.Component {
             })
         }
     }
+    beep(_timeleft) {
+        if (_timeleft === 0) {
+
+            this.audioBeep.play();
+        }
+    }
 
     clock() {
         let minutes = Math.floor(this.state.timeleft / 60);
@@ -99,8 +110,10 @@ class App extends React.Component {
     }
 
     reset() {
+        this.setState({breakLength: 5, sessionLength: 25, timerLabel: 'Session', play: true, timeleft: 1500});
         clearInterval(this.timerID);
-        this.setState({breakLength: 5, sessionLength: 25, timerLabel: 'Session', play: true, timeleft: 1500})
+        this.audioBeep.pause();
+        this.audioBeep.currentTime = 0;
     }
 
     render() {
@@ -148,6 +161,9 @@ class App extends React.Component {
             <h2 id="copyright">
                 by RubyLupus
             </h2>
+            <audio id="beep" preload="auto" src="https://goo.gl/65cBl1" ref={(audio) => {
+                    this.audioBeep = audio;
+                }}/>
         </div>)
     }
 }
