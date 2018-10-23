@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
+import beep from './beep.mp3';
 
 class App extends React.Component {
     constructor(props) {
@@ -74,22 +75,22 @@ class App extends React.Component {
                 timeleft: this.state.timeleft - 1
             });
         }, 1000);
-        this.audioBeep.pause();
+
     }
 
     checkSession() {
         if (this.state.timeleft === 0 && this.state.timerLabel === "Session") {
-            setTimeout(() => this.audioBeep.play(), 1000);
             this.setState({
                 timeleft: this.state.breakLength * 60,
                 timerLabel: "Break"
-            })
-        } else if (this.state.timeleft === 0 && this.state.timerLabel === "Break") {
+            });
             this.audioBeep.play();
+        } else if (this.state.timeleft === 0 && this.state.timerLabel === "Break") {
             this.setState({
                 timeleft: this.state.sessionLength * 60,
                 timerLabel: "Session"
-            })
+            });
+            this.audioBeep.play();
         }
     }
 
@@ -109,6 +110,7 @@ class App extends React.Component {
         this.setState({breakLength: 5, sessionLength: 25, timerLabel: 'Session', play: true, timeleft: 1500});
         clearInterval(this.timerID);
         this.audioBeep.pause();
+        this.audioBeep.currentTime = 0;
     }
 
     render() {
@@ -156,7 +158,7 @@ class App extends React.Component {
             <h2 id="copyright">
                 by RubyLupus
             </h2>
-            <audio id="beep" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3" type="audio/mpeg" ref={(audio) => {
+            <audio id="beep" src={beep} type="audio/mpeg" ref={(audio) => {
                     this.audioBeep = audio;
                 }}/>
         </div>)
